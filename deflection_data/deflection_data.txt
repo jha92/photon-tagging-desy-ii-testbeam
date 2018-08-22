@@ -1,0 +1,12 @@
+# Energy[GeV]	Xposition[stage setting]
+5	    150  
+4.4     144
+4	    138  
+3.4     126
+3	    116  
+2.4     96
+2	    76   
+1.4     21
+
+
+
