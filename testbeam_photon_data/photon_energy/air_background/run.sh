@@ -1,0 +1,8 @@
+python hist_mso_analyse.py 0.0_GeV_background_180823_135724.csv 
+python hist_mso_analyse.py 0.6_GeV_background_180823_140516.csv 
+python hist_mso_analyse.py 1.0_GeV_background_180823_141027.csv
+python hist_mso_analyse.py 1.6_GeV_background_180823_141632.csv
+python hist_mso_analyse.py 2.0_GeV_background_180823_142143.csv
+python hist_mso_analyse.py 2.6_GeV_background_180823_142852.csv
+python hist_mso_analyse.py 3.0_GeV_background_180823_143709.csv
+python hist_mso_analyse.py 3.6_GeV_background_180823_144941.csv
