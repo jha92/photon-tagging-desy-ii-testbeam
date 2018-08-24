@@ -1,12 +1,10 @@
-#! /usr/bin/env python
-import numpy as np
 '''plot and analyse histograms from MSO scope
 
 Usage:
     hist_mso_analyse.py [--configuration=<configuration>]
 
 Options:
-    --configuration=<configuration> yaml file [required]
+    --configuration=<configuration> yaml file
     -h --help                   show usage of this script
     -v --version                show the version of this script
 '''
@@ -78,7 +76,7 @@ chi2red = chi2 / (len(ydata)-len(para))
 total_counts = np.sum(counts)
 data_info = (data_name[:17].replace("_", " ") +'\n' +
         r'total counts = %.1f'%(total_counts) + '\n' +
-        r'mean fit = %.1f'%(para[0]) + '\n' +
+        r'mean fit = %.2f'%(para[0]) + '\n' +
         r'sigma fit = %.2f'%(abs(para[1])))
 #print data_info
 

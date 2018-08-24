@@ -1,4 +1,4 @@
 - magnet off
 - no converter
-- vary input energy, 1.4, 2.0, 2.4, 3.0, 3.4, 4.0
+- vary input energy, 1.0, 1.6, 2.0, 2.6, 3.0, 3.6
 - spectrum at the lead counter
