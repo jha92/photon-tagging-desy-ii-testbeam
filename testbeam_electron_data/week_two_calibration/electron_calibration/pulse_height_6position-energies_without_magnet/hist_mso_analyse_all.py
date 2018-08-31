@@ -16,6 +16,7 @@ from docopt import docopt
 import matplotlib.pyplot as plt
 import matplotlib.ticker as plticker
 
+
 #from math import *
 #from scipy import integrate
 #import inspect, os
@@ -39,11 +40,14 @@ data_names = ['1.0_GeV_electrons_180822_153820.csv',
 
 ##########
 # PLOT
-fig, ax = plt.subplots(figsize=(6, 4))#, dpi=100)
+fig, ax, = plt.subplots(figsize=(10, 6))#, dpi=100)
 fig.subplots_adjust(left=0.17, right=0.95, top=0.9, bottom=0.17)
 
+ax.xaxis.grid(color='gray', linestyle='dashed')
+ax.yaxis.grid(color='gray', linestyle='dashed')
+ax.set_axisbelow(True)
 
-def plot_calibration(data_name):
+def plot_calibration(data_name, data_color):
     # DATA
     bins, counts = np.loadtxt(data_name, usecols=(0, 1), delimiter=',').T
 
@@ -92,46 +96,65 @@ def plot_calibration(data_name):
 
     norm_factor = para[2] 
 
-    # plot histogram
+    # plot istogram
     # normalize
     counts = counts / norm_factor
-    plt.bar(bins, counts, width=binning,
-            color='b', lw=0)
-    props = dict(boxstyle='square', facecolor='white')
-    plt.text(para[0], 10., data_label, fontsize=8, #transform = ax.transAxes,
-                verticalalignment='top', horizontalalignment='left',
-                rotation=45)#, bbox=props)
-
+    ax.bar(bins, counts, width=binning,
+            color=data_color, lw=0)
+    #props = dict(boxstyle='square', facecolor='white')
+    #plt.text(para[0], 10., data_label, fontsize=8, #transform = ax.transAxes,
+    #            verticalalignment='top', horizontalalignment='left',
+    #            rotation=45)#, bbox=props)
     # plot fit
-    x_fit = bins #xdata 
-    y_fit = fitfunc(x_fit, *para)
+    #x_fit = bins #xdata 
+    #y_fit = fitfunc(x_fit, *para)
     # normalize
-    y_fit = y_fit / norm_factor
-    plt.plot(x_fit, y_fit, ls='-', lw=2, color='k', label=data_label)
+    #y_fit = y_fit / norm_factor
+    #plt.plot(x_fit, y_fit, ls='-', lw=2, color='#696969', label=data_label)
+
+color_palette = ['#76EEC6',
+        '#00CED1',
+        '#00B2EE',
+        '#009ACD',
+        '#1874CD',
+        '#104E8B']
 
 
 
 for index, value in enumerate(data_names):
-    plot_calibration(value)
-
+    plot_calibration(value, color_palette[index])
 
 # options
-plt.title('Lead counter calibration with electrons')#, fontsize=8)
+
+# bottom x axis
+new_tick_locations = np.array([1.18, 1.87, 2.34, 3.07, 3.55, 4.28])
+ax.set_xlabel(r'Pulse Height [V]', fontsize=16)
+ax.set_xticks(new_tick_locations)
+ax.set_xlim(0, 5.4)
+
+# second x axis
+ax2 = ax.twiny()
+ax2.set_xlim(ax.get_xlim())
+new_tick_labels = np.array([1.0, 1.6, 2.0, 2.6, 3.0, 3.6])
+ax2.set_xticks(new_tick_locations)
+ax2.set_xticklabels(new_tick_labels)
+ax2.set_xlabel(r"Beam Energy [GeV]", fontsize = 16)
+ax2.set_ylabel(r"Counts [a.u.]", fontsize = 16)
+
+
+#plt.title('Lead counter calibration with electrons', fontsize=16)
 #plt.legend(fontsize=4)
 plt.yscale('log')
 plt.ylim(7e-2, 1e1)
+plt.ylabel(r'Counts [a.u.]', fontsize = 16)
 #plt.ylim(0, 1.6)
-plt.xlim(0, 6.2)
-loc = plticker.MultipleLocator(base=0.5) # this locator puts ticks at regular intervals
-ax.xaxis.set_major_locator(loc)
-plt.xlabel(r'pulse height [V]')
-plt.ylabel(r'counts [a.u.]')
+#plt.xlabel(r'Electron Energy', fontsize=16)
 
 # Show plot, save results
-save_name = script_name[:-3] + '_' + 'all' + ".pdf"
+save_name = script_name[:-3] + '_' + 'all' + ".png"
 plt.savefig(save_name)
 print "evince", save_name, "&"
-
+plt.show()
 
 # save parameter
 # np.savez('summarize' + data_in, rn=rn, sn_3sigma=sn_3sigma, mu=mu, d_mu=d_mu, si=si, d_si=d_si, sigma3=sigma3, e_res=e_res, d_e_res=d_e_res, signal_counts_3sigma=signal_counts_3sigma, signal_counts_fit=signal_counts_fit, fit_start=fit_start, fit_end=fit_end, a=a, d_a=d_a, b=b, d_b=d_b, noise_counts_3sigma=noise_counts_3sigma, noise_fit_start=noise_fit_start, noise_fit_end=noise_fit_end, data_in=data_in, voltage_binning=voltage_binning, counts_binning=counts_binning, total_counts=total_counts)

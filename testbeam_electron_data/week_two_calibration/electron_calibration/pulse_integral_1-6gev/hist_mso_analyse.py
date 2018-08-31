@@ -107,7 +107,7 @@ plt.xlim(-first_bin, -last_bin)
 plt.ylim(1., 1e3)
 
 # Show plot, save results
-save_name = script_name[:-3] + '_' + data_name[:-4] + ".pdf"
+save_name = script_name[:-3] + '_' + data_name[:-4] + ".png"
 plt.savefig(save_name)
 print "evince", save_name, "&"
 

@@ -87,7 +87,7 @@ fig.subplots_adjust(left=0.17, right=0.95, top=0.95, bottom=0.17)
 
 # plot histogram
 plt.bar(bins, counts, width=binning,
-        color='b', lw=0)
+        color='#FFA500', lw=0)
 props = dict(boxstyle='square', facecolor='white')
 plt.text(0.05, 0.95, data_info, fontsize=8, transform = ax.transAxes,
             verticalalignment='top', horizontalalignment='left', bbox=props)
@@ -106,7 +106,7 @@ plt.ylabel(r'counts [#]')
 plt.xlim(bins[0], bins[-1])
 
 # Show plot, save results
-save_name = script_name[:-3] + '_' + data_name[:-4] + ".pdf"
+save_name = script_name[:-3] + '_' + data_name[:-4] + ".png"
 plt.savefig(save_name)
 print "evince", save_name, "&"
 
