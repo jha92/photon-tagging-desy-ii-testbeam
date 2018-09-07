@@ -4,25 +4,40 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 import sys
+
+###
 script_name = sys.argv[0]
 
-def spectrum(kmin, kmax, energy, thickness, radiation_length):
+###
+def spectrum_slice(kmin, kmax, energy_initial, thickness, radiation_length):
     return thickness/radiation_length * (
             4./3. *np.log(kmax/kmin) -
-            4*(kmax-kmin)/(3.*energy) +
-            (kmax**2 - kmin**2)/(2. * energy**2))
+            4*(kmax-kmin)/(3.*energy_initial) +
+            (kmax**2 - kmin**2)/(2. * energy_initial**2))
 
-momenta = np.linspace(0., 6., 100)
-spectra = spectrum(momenta[:-1], momenta[1:], 6., 0.3, 1.436)
+def gauss(xvalues, position, width, height):
+    return height * np.exp(-0.5*(xvalues - position)**2/width**2)
 
-print len(momenta), len(spectra)
 
-# shift bins in the center
-binning = momenta[1] - momenta[0]
-momenta = momenta + binning/2
-# remove the last bin 
-momenta = momenta[:-1]
+### x-values
+momenta_limits = np.linspace(0.1, 6., 100)
+print len(momenta_limits)
+# shift bins in the center & remove the last bin 
+binning = momenta_limits[1] - momenta_limits[0]
+momenta = momenta_limits[:-1] + binning/2
 print len(momenta)
+
+# counts
+spectra_height = spectrum_slice(momenta_limits[:-1], momenta_limits[1:],
+        energy_initial=5., thickness=0.3, radiation_length=1.436)
+#spectra = spectra_height
+
+spectra = np.zeros(len(momenta))
+for index, value in enumerate(momenta[momenta <= 5.]):
+    print value, spectra_height[index]
+    spectra += gauss(momenta, value, width=0.2, height=spectra_height[index])
+
+print len(spectra)
 
 ##########
 # PLOT
@@ -34,17 +49,16 @@ plt.bar(momenta, spectra, width=binning,
 
 # options
 plt.yscale('log')
-#plt.ylim(1., 1e4)
+plt.ylim(1e-3, 1.)
 plt.xlabel(r'energy [GeV]')
 plt.ylabel(r'counts')
 #plt.xlim(bins[0], bins[-1])
 
 # Show plot, save results
 save_name = script_name[:-3] + ".png"
+plt.savefig(save_name)
 save_name = script_name[:-3] + ".pdf"
 plt.savefig(save_name)
 print "evince", save_name, "&"
 
 exit()
-
-
