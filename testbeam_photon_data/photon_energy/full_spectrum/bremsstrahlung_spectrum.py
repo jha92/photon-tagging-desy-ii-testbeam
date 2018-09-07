@@ -30,7 +30,8 @@ print len(momenta)
 # counts
 spectra_height = spectrum_slice(momenta_limits[:-1], momenta_limits[1:],
         energy_initial=5., thickness=0.3, radiation_length=1.436)
-#spectra = spectra_height
+# TODO: implement width according to the measurement: 1GeV+-13.6% to 3.6+-5.6%
+
 
 spectra = np.zeros(len(momenta))
 for index, value in enumerate(momenta[momenta <= 5.]):
