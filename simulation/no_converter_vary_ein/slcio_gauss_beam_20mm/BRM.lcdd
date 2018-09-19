@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lcdd xmlns:lcdd="http://www.lcsim.org/schemas/lcdd/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="http://www.lcsim.org/schemas/lcdd/1.0/lcdd.xsd">
+  <header>
+    <detector name="BRM" />
+    <generator name="GeomConverter" version="1.0" file="/nfs/dust/atlas/user/dunnekat/slic/slic_desy_testbeam/example1/BRM/test_beam/compact.xml" checksum="178897133" />
+    <author name="Katie Dunne" />
+    <comment>NONE</comment>
+  </header>
+  <iddict>
+    <idspec name="ConverterHits" length="64">
+      <idfield signed="false" label="system" length="8" start="0" />
+      <idfield signed="true" label="y" length="21" start="8" />
+      <idfield signed="false" label="barrel" length="3" start="29" />
+      <idfield signed="true" label="x" length="21" start="32" />
+      <idfield signed="false" label="layer" length="11" start="53" />
+    </idspec>
+  </iddict>
+  <sensitive_detectors>
+    <calorimeter name="Converter" ecut="0.0" eunit="MeV" verbose="0" hits_collection="ConverterHits">
+      <idspecref ref="ConverterHits" />
+      <grid_xyz grid_size_x="0.1" grid_size_y="0.1" grid_size_z="0.0" />
+    </calorimeter>
+  </sensitive_detectors>
+  <limits />
+  <regions>
+    <region name="TrackingRegion" store_secondaries="true" cut="10.0" lunit="mm" threshold="1.0" eunit="MeV" />
+  </regions>
+  <display>
+    <vis name="WorldVis" line_style="unbroken" drawing_style="wireframe" show_daughters="true" visible="false">
+      <color R="1.0" G="1.0" B="1.0" alpha="1.0" />
+    </vis>
+    <vis name="TrackingVis" line_style="unbroken" drawing_style="wireframe" show_daughters="true" visible="false">
+      <color R="1.0" G="1.0" B="1.0" alpha="1.0" />
+    </vis>
+  </display>
+  <gdml>
+    <define>
+      <rotation name="identity_rot" x="0.0" y="0.0" z="0.0" unit="radian" />
+      <rotation name="reflect_rot" x="3.141592653589793" y="0.0" z="0.0" unit="radian" />
+      <position name="identity_pos" x="0.0" y="0.0" z="0.0" unit="mm" />
+      <constant name="dipoleMagnetWidth" value="2000.0" />
+      <constant name="world_x" value="11250.0" />
+      <constant name="world_y" value="11250.0" />
+      <constant name="dipoleMagnetPositionX" value="0.0" />
+      <constant name="world_z" value="11250.0" />
+      <constant name="dipoleMagnetPositionY" value="0.0" />
+      <constant name="dipoleMagnetPositionZ" value="1100.0" />
+      <constant name="tracking_region_radius" value="2000.0" />
+      <constant name="tracking_region_zmax" value="2000.0" />
+      <constant name="constBFieldY" value="0.18" />
+      <constant name="cm" value="10.0" />
+      <constant name="dipoleMagnetLength" value="1100.0" />
+      <constant name="world_side" value="11250.0" />
+      <constant name="dipoleMagnetHeight" value="1000.0" />
+      <position name="Converter_position" x="0.0" y="0.0" z="450.0" unit="mm" />
+      <position name="Converter_layerType0_slice0_position" x="0.0" y="0.0" z="0.0" unit="mm" />
+      <position name="Converter_layer0_position" x="0.0" y="0.0" z="0.0" unit="mm" />
+    </define>
+    <materials>
+      <element Z="7" formula="N" name="N">
+        <atom type="A" unit="g/mol" value="14.0068" />
+      </element>
+      <element Z="8" formula="O" name="O">
+        <atom type="A" unit="g/mol" value="15.9994" />
+      </element>
+      <element Z="18" formula="Ar" name="Ar">
+        <atom type="A" unit="g/mol" value="39.9477" />
+      </element>
+      <element Z="1" formula="H" name="H">
+        <atom type="A" unit="g/mol" value="1.00794" />
+      </element>
+      <material name="Air">
+        <D type="density" unit="g/cm3" value="0.0012" />
+        <fraction n="0.754" ref="N" />
+        <fraction n="0.234" ref="O" />
+        <fraction n="0.012" ref="Ar" />
+      </material>
+      <material name="WorldMaterial">
+        <D type="density" unit="g/cm3" value="0.001225" />
+        <fraction n="1.0" ref="Air" />
+      </material>
+      <material name="Vacuum">
+        <D type="density" unit="g/cm3" value="0.00000001" />
+        <fraction n="1" ref="H" />
+      </material>
+      <material name="TrackingMaterial">
+        <D type="density" unit="g/cm3" value="0.0000000001" />
+        <fraction n="1.0" ref="Vacuum" />
+      </material>
+    </materials>
+    <solids>
+      <box name="world_box" x="world_x" y="world_y" z="world_z" />
+      <tube name="tracking_cylinder" deltaphi="6.283185307179586" rmin="0.0" rmax="tracking_region_radius" z="2*tracking_region_zmax" />
+      <box name="Converter_box" x="50.0" y="50.0" z="1.0E-4" />
+      <box name="Converter_layerType0_box" x="50.0" y="50.0" z="1.0E-4" />
+      <box name="Converter_layerType0_slice0_box" x="50.0" y="50.0" z="1.0E-4" />
+    </solids>
+    <structure>
+      <volume name="Converter_layerType0_slice0">
+        <materialref ref="Air" />
+        <solidref ref="Converter_layerType0_slice0_box" />
+        <sdref ref="Converter" />
+      </volume>
+      <volume name="Converter_layerType0">
+        <materialref ref="Air" />
+        <solidref ref="Converter_layerType0_box" />
+        <physvol>
+          <volumeref ref="Converter_layerType0_slice0" />
+          <positionref ref="Converter_layerType0_slice0_position" />
+          <rotationref ref="identity_rot" />
+          <physvolid field_name="slice" value="0" />
+        </physvol>
+      </volume>
+      <volume name="Converter_envelope">
+        <materialref ref="Air" />
+        <solidref ref="Converter_box" />
+        <physvol>
+          <volumeref ref="Converter_layerType0" />
+          <positionref ref="Converter_layer0_position" />
+          <rotationref ref="identity_rot" />
+          <physvolid field_name="layer" value="0" />
+        </physvol>
+      </volume>
+      <volume name="tracking_volume">
+        <materialref ref="TrackingMaterial" />
+        <solidref ref="tracking_cylinder" />
+        <physvol>
+          <volumeref ref="Converter_envelope" />
+          <positionref ref="Converter_position" />
+          <rotationref ref="identity_rot" />
+          <physvolid field_name="system" value="1" />
+        </physvol>
+        <regionref ref="TrackingRegion" />
+        <visref ref="TrackingVis" />
+      </volume>
+      <volume name="world_volume">
+        <materialref ref="WorldMaterial" />
+        <solidref ref="world_box" />
+        <physvol>
+          <volumeref ref="tracking_volume" />
+          <positionref ref="identity_pos" />
+          <rotationref ref="identity_rot" />
+        </physvol>
+        <visref ref="WorldVis" />
+      </volume>
+    </structure>
+    <setup name="Default" version="1.0">
+      <world ref="world_volume" />
+    </setup>
+  </gdml>
+  <fields>
+    <box_dipole name="AnalyzingDipole" lunit="mm" funit="tesla" x="0.0" y="0.0" z="1100.0" dx="1000.0" dy="500.0" dz="550.0" bx="0.0" by="0.18" bz="0.0" />
+  </fields>
+</lcdd>
+

@@ -1,0 +1,8 @@
+/nfs/dust/atlas/user/dunnekat/slic/build/slic -m 1_0.macro
+/nfs/dust/atlas/user/dunnekat/slic/build/slic -m 1_4.macro
+/nfs/dust/atlas/user/dunnekat/slic/build/slic -m 2_0.macro
+/nfs/dust/atlas/user/dunnekat/slic/build/slic -m 2_4.macro
+/nfs/dust/atlas/user/dunnekat/slic/build/slic -m 3_0.macro
+/nfs/dust/atlas/user/dunnekat/slic/build/slic -m 3_4.macro
+/nfs/dust/atlas/user/dunnekat/slic/build/slic -m 4_0.macro
+/nfs/dust/atlas/user/dunnekat/slic/build/slic -m 4_4.macro

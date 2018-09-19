@@ -1,0 +1,18 @@
+/lcio/PDGFlag true
+/lcio/filename ./2_0Gev_0_18T_10_6.slcio
+/lcdd/url BRM.lcdd
+
+/run/initialize
+/generator/select gps
+/gps/particle e-
+/gps/pos/type Beam
+/gps/pos/halfx 1.0 mm
+/gps/pos/halfy 1.0 mm
+/gps/pos/centre 0 0 0 cm
+/gps/direction 0. 0. 1. 
+/gps/ene/type Gauss
+/gps/ene/mono 2.0 GeV
+/gps/ene/sigma 6.17249 MeV
+
+/random/seed
+/run/beamOn 1000000

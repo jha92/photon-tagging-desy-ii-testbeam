@@ -1,0 +1,75 @@
+<lccdd xmlns:compact="http://www.lcsim.org/schemas/compact/1.0"
+       xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"
+       xs:noNamespaceSchemaLocation="http://www.lcsim.org/schemas/compact/1.0/compact.xsd">
+  
+  <info name="BRM"
+	title="Big Red Magnet for TB Photon Tagging Studies"
+	author="Katie Dunne"
+	url="NONE"
+	status="development"
+	version="$Id: compact.xml,v 1.1 2007/09/17 22:10:42 lima Exp $">
+  </info>
+  
+  <define>
+    
+    <constant name="cm" value="10"/>
+    
+    <!-- world -->
+    <constant name="world_side" value="1125*cm" />
+    <constant name="world_x" value="world_side" />
+    <constant name="world_y" value="world_side" />
+    <constant name="world_z" value="world_side" />
+
+    <!-- tracking region -->
+    <constant name="tracking_region_zmax" value="200.*cm"/>
+    <constant name="tracking_region_radius" value = "200.*cm"/>
+    <!--  dipole magnet and  B-field -->
+    <constant name="dipoleMagnetPositionX" value="0" />
+    <constant name="dipoleMagnetPositionY" value="0" />
+    <constant name="dipoleMagnetPositionZ" value="110*cm" />
+    <constant name="dipoleMagnetHeight" value="100*cm" />
+    <constant name="dipoleMagnetWidth" value="200*cm" />
+    <constant name="dipoleMagnetLength" value="110*cm" />
+    <constant name="constBFieldY" value="0.18" />
+  </define>
+
+  <materials>
+    <!-- Set the world material to air. -->
+    <material name="WorldMaterial">
+      <D type="density" unit="g/cm3" value="0.001225"/>
+      <fraction n="1.0" ref="Air"/>
+    </material>
+    <!-- Set tracking material to vacuum. -->
+    <material name="TrackingMaterial">
+      <D type="density" unit="g/cm3" value="0.0000000001"/>
+      <fraction n="1.0" ref="Vacuum"/>
+    </material> 
+  </materials>
+
+  <detectors>
+  <detector id="1" name="Converter" type="TestBeamCalorimeter" readout="ConverterHits" insideTrackingVolume="true">
+      <dimensions x="5.*cm" y="5.*cm" />
+      <position z="45*cm" />
+      <layer repeat="1">       
+        <slice material = "Copper" thickness = "0.3*cm" sensitive = "yes" />
+      </layer>	
+    </detector>  
+  </detectors>
+
+  <!-- Sensitive Detector readout segmentation -->
+  <readouts>
+   <readout name="ConverterHits">   
+     <segmentation type="GridXYZ" gridSizeX="0.01*cm" gridSizeY="0.01*cm" />
+     <id>system:8,y:-21,barrel:3,x:32:-21,layer:11</id>
+   </readout> 
+  </readouts>
+
+
+  <fields>
+    <field type="BoxDipole" name="AnalyzingDipole" 
+    x="0." y="0." z="dipoleMagnetPositionZ" 
+    dx="dipoleMagnetWidth/2.0" dy="dipoleMagnetHeight/2.0" dz="dipoleMagnetLength/2.0" 
+    lunit="Tesla" bx="0.0" by="constBFieldY" bz="0.0" />    
+  </fields>
+
+</lccdd>
