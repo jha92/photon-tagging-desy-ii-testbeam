@@ -1,12 +1,10 @@
-#! /usr/bin/env python
-import numpy as np
 '''plot and analyse histograms from MSO scope
 
 Usage:
-    hist_mso_analyse.py [--configuration=<configuration>]
+    hist_mso_analyse.py (--input=<input>)
 
 Options:
-    --configuration=<configuration> yaml file 
+    --input=<input>             scope data
     -h --help                   show usage of this script
     -v --version                show the version of this script
 '''
@@ -19,10 +17,15 @@ import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 import sys
 
+import bremsstrahlung_spectrum
+
 # INPUT
 fit = False
 script_name = sys.argv[0]
-data_name = str(sys.argv[1])
+
+arguments = docopt(__doc__, version='test')
+data_name = arguments['--input']
+print data_name
 
 print "Starting script:", script_name
 print "Arguments:", data_name
@@ -48,7 +51,7 @@ bins = bins - binning/2
 one_count = 511
 counts = counts / 511
 
-# FIT / Mean
+# fit / mean
 if fit:
     fitfunc = lambda x, *p: p[2] * np.exp(-0.5*(x-p[0])**2/p[1]**2)
     maximum_bin_index = np.where(np.max(counts)==counts)[0][0]
@@ -74,10 +77,6 @@ if fit:
 total_counts = np.sum(counts)
 data_info = ('full photon spectrum' +'\n' +
         r'total counts = %.1f'%(total_counts))
-if fit:
-    data_info = (data_info + '\n' +
-            r'mean fit = %.1f'%(para[0]) + '\n' +
-            r'sigma fit = %.2f'%(abs(para[1])))
 #print data_info
 
 ##########
@@ -92,12 +91,6 @@ props = dict(boxstyle='square', facecolor='white')
 plt.text(0.05, 0.95, data_info, fontsize=8, transform = ax.transAxes,
             verticalalignment='top', horizontalalignment='left', bbox=props)
 
-if fit:
-    # plot fit
-    x_fit = xdata
-    y_fit = fitfunc(x_fit, *para)
-    plt.plot(x_fit, y_fit, ls='-', lw=2, alpha=0.8, color='red')
-
 # options
 plt.yscale('log')
 plt.ylim(1., 1e4)
@@ -106,10 +99,6 @@ plt.ylabel(r'counts [#]')
 plt.xlim(bins[0], bins[-1])
 
 # Show plot, save results
-save_name = script_name[:-3] + '_' + data_name[:-4] + ".png"
+save_name = script_name[:-3] + '_' + data_name[:-4] + ".pdf"
 plt.savefig(save_name)
 print "evince", save_name, "&"
-
-
-# save parameter
-# np.savez('summarize' + data_in, rn=rn, sn_3sigma=sn_3sigma, mu=mu, d_mu=d_mu, si=si, d_si=d_si, sigma3=sigma3, e_res=e_res, d_e_res=d_e_res, signal_counts_3sigma=signal_counts_3sigma, signal_counts_fit=signal_counts_fit, fit_start=fit_start, fit_end=fit_end, a=a, d_a=d_a, b=b, d_b=d_b, noise_counts_3sigma=noise_counts_3sigma, noise_fit_start=noise_fit_start, noise_fit_end=noise_fit_end, data_in=data_in, voltage_binning=voltage_binning, counts_binning=counts_binning, total_counts=total_counts)

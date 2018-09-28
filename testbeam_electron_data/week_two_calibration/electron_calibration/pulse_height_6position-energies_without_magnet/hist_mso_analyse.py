@@ -77,7 +77,7 @@ total_counts = np.sum(counts)
 data_info = (data_name[:17].replace("_", " ") +'\n' +
         r'total counts = %.1f'%(total_counts) + '\n' +
         r'mean fit = %.2f'%(para[0]) + '\n' +
-        r'sigma fit = %.2f'%(abs(para[1])))
+        r'sigma fit = %.2f (%.2f'%(abs(para[1]), abs(para[1])/para[0]*100) + '\%)' )
 #print data_info
 
 ##########
