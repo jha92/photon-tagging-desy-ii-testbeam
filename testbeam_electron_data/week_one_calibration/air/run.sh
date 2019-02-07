@@ -1,0 +1,17 @@
+python plot_spectrum.py 1_0Gev_180817_123649.csv
+python plot_spectrum.py 1_2Gev_180817_124222.csv
+python plot_spectrum.py 1_4Gev_180817_124703.csv
+python plot_spectrum.py 1_6Gev_180817_125328.csv
+python plot_spectrum.py 1_8Gev_180817_125854.csv
+python plot_spectrum.py 2_0Gev_180817_130817.csv
+python plot_spectrum.py 2_2Gev_180817_131125.csv
+python plot_spectrum.py 2_4Gev_180817_131259.csv
+python plot_spectrum.py 2_6Gev_180817_131445.csv
+python plot_spectrum.py 2_8Gev_180817_131627.csv
+python plot_spectrum.py 3_0Gev_180817_132836.csv
+python plot_spectrum.py 3_2Gev_180817_133158.csv
+python plot_spectrum.py 3_4Gev_180817_133513.csv
+python plot_spectrum.py 3_6Gev_180817_133735.csv
+python plot_spectrum.py 3_8Gev_180817_133943.csv
+python plot_spectrum.py 4_0Gev_180817_135607.csv
+python plot_spectrum.py 4_2Gev_180817_135924.csv
